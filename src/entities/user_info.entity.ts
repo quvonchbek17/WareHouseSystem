@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, OneToOne, JoinColumn, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Users } from "./users.entity";
+
 
 @Entity()
 export class UserInfo {
@@ -18,4 +20,8 @@ export class UserInfo {
     nullable: false,
   })
   user_full_name: string;
+
+  @OneToOne(() => Users)
+  @JoinColumn()
+  user: Users;
 }
