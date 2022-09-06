@@ -1,23 +1,20 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "target": "es6",
         "module": "commonjs",
         "moduleResolution": "node",
-        "rootDir": "./",
-        "outDir": "./dist",
-        "noImplicitAny": true,
-        "esModuleInterop": true,
+        "target": "es6",
+        "emitDecoratorMetadata": true,
         "resolveJsonModule": true,
         "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
+        "noImplicitAny": true,
+        "rootDir": "./",
+        "outDir": "./dist",
+        "allowSyntheticDefaultImports": false
     },
     "include": [
         "./src/**/*.ts",
         "./server.ts",
         "./package.json"
-    ],
-    "exclude": [
-        "./node_modules"
-    ]
+, "src/config/ormconfig.ts"    ]
 }
