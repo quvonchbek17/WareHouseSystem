@@ -18,5 +18,4 @@ export class UserInfo {
         nullable: false
     })
     user_full_name: string;
-
 }
