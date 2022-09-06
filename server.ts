@@ -1,5 +1,5 @@
-import * as express from "express";
-import { dataSource } from "./src/config/ormconfig";
+import * as express from 'express'
+import { dataSource } from './src/config/ormconfig'
 
 const app: express.Application = express();
 
