@@ -1,4 +1,4 @@
-import express from 'express'
+import * as express from 'express'
 import { dataSource } from './src/config/ormconfig'
 
 const app: express.Application = express()
