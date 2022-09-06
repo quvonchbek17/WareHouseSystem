@@ -1,10 +1,9 @@
+
 import express from 'express'
 import { dataSource } from './src/config/ormconfig'
 
-const app: express.Application = express();
-
+const app: express.Application = express()
 app.use(express.json());
-
 dataSource
   .initialize()
   .then(() => console.log("Connected"))
