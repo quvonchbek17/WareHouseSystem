@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Users } from "./users.entity";
 
 @Entity()
 export class Orders {
@@ -22,4 +23,11 @@ export class Orders {
 
     @Column({ type: 'time with time zone', default: () => 'CURRENT_TIMESPAMP'})
     delivered_at: string
+
+    @Column({
+        type: "boolean",
+        default: false
+    })
+    order_status: boolean
+
 }
