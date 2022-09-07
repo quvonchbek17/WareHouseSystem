@@ -14,15 +14,6 @@ export class UserInfo {
   })
   user_phone_number: string;
 
-<<<<<<< HEAD
-    @Column({
-        type: 'varchar',
-        length: 256,
-        nullable: false
-    })
-    user_full_name: string;
-}
-=======
   @Column({
     type: "varchar",
     length: 256,
@@ -34,4 +25,3 @@ export class UserInfo {
   @JoinColumn()
   user: Users;
 }
->>>>>>> 93b94bbc9d7aeabad247bdf225ba06e9053bb862

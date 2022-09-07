@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Users } from "./users.entity";
 
 @Entity()
@@ -30,4 +30,6 @@ export class Orders {
     })
     order_status: boolean
 
+    @ManyToOne(() => Users)
+    users: Users[]
 }
