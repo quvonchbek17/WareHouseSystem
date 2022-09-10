@@ -1,0 +1,21 @@
+{
+    "root": true,
+    "env": {
+        "node": true,
+        "browser": false,
+        "es6": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:json/recommended"
+    ],
+    "rules": {
+		"no-console": "error"
+	}
+}

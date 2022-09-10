@@ -7,6 +7,6 @@ export const dataSource = new DataSource({
     port: 5432,
     username: 'ipalgdqc',
     password: 'RNc9dzidxsedjD5_83h9QbWHQ_oMwdqQ',
-    synchronize: false,
+    synchronize: true,
     entities: [path.join(__dirname, '..', 'entities', '*.entity.{ts,js}')]
 })
