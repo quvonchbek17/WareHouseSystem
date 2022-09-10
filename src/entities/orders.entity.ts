@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Users } from "./users.entity";
 
 @Entity()
@@ -24,12 +24,10 @@ export class Orders {
     @Column({ type: 'time with time zone', default: () => 'CURRENT_TIMESPAMP'})
     delivered_at: string
 
-    @Column({
-        type: "boolean",
-        default: false
-    })
-    order_status: boolean
+    @Column('enum')
+    order_status: 'accepted' | 'expected' | 'arrived'
 
-    @ManyToOne(() => Users)
-    users: Users[]
+    @OneToOne(() => Users)
+    @JoinColumn()
+    user_id: Users
 }
