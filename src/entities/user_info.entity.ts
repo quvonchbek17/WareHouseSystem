@@ -1,7 +1,6 @@
 import { Entity, OneToOne, JoinColumn, Column, PrimaryGeneratedColumn } from "typeorm";
 import { Users } from "./users.entity";
 
-
 @Entity()
 export class UserInfo {
   @PrimaryGeneratedColumn("uuid")

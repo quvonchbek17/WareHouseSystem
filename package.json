@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc -p . && node ./dist/server.js",
-    "dev": "nodemon server.ts"
+    "dev": "nodemon server.ts",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,8 @@
     "@types/node": "^18.7.15"
   },
   "dependencies": {
+    "@types/eslint": "^8.4.6",
+    "eslint": "^8.23.0",
     "express": "^4.18.1",
     "nodemon": "^2.0.19",
     "pg": "^8.8.0",
