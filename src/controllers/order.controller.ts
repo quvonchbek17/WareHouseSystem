@@ -34,27 +34,27 @@ export default {
     PUT_STATUS: async(req: Request, res: Response) => {
         const { order_id, status, user_id } = req.body
 
-        if(status == 'accepted' && user_id) {
+        const orders = await dataSource.getRepository(Orders).find({where: { order_id: order_id}})
+
+        if(status == 'accepted' && user_id && orders[0].order_status !== 'arrived') {
             const updatedStatus = await dataSource
                 .createQueryBuilder()
                 .update(Orders)
                 .set({ order_status: status, user_id: user_id })
-                //arrived qilingan orderlani accesped qilinib qolivotti
                 .where('order_id = :order_id', { order_id })
-                .returning(["user_id"])
+                .returning(["order_id"])
                 .execute()
-            res.json(updatedStatus.raw)
+            return res.json(updatedStatus.raw)
         }
         if(status == 'arrived') {
             const updatedStatus = await dataSource
                 .createQueryBuilder()
                 .update(Orders)
-                .set({ order_status: status, delivered_at: () => 'CURRENT_TIMESTAMP' })
+                .set({ order_status: status, delivered_at: () => 'CURRENT_TIMESTAMP', user_id: null })
                 .where('order_id = :order_id', { order_id })
                 .returning(["order_id"])
                 .execute()
-            res.json(updatedStatus.raw)
-            //Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+            return res.json(updatedStatus.raw)
         }
         res.send('Bad request')
     }
