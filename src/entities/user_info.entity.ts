@@ -11,7 +11,7 @@ export class UserInfo {
         nullable: false
     })
     user_phone_number: string;
-
+    
     @Column({
         type: 'varchar',
         length: 256,

@@ -1,4 +1,3 @@
-
 import express from 'express'
 import { dataSource } from './src/config/ormconfig'
 

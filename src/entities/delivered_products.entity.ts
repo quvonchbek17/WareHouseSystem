@@ -21,7 +21,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
         type: 'bigint',
         nullable: false
     })
-    delivered_product_count: bigint
+    delivered_product_count:bigint
 
     @Column({
         type: 'varchar',
