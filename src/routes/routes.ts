@@ -1,10 +1,11 @@
 
+
 import { Router } from 'express'
 import orderController from '../controllers/order.controller'
 import userController from "../controllers/user.controller";
 import userInfoController from "../controllers/user_info.controller";
 import productsController from "../controllers/product.controller";
-
+import orderProduct from "../controllers/order_products.controller";
 
 const router = Router();
 
@@ -21,6 +22,10 @@ router
   .put('/updateStatus', orderController.PUT_STATUS)
   .post("/userInfo", userInfoController.POST)
   .put("/userInfo/:userInfoId", userInfoController.PUT)
-  .get("/userInfo/:userId", userInfoController.GET);
+  .get("/userInfo/:userId", userInfoController.GET)
+  .get("/orderProduct", orderProduct.GET)
+  .post("/orderProduct", orderProduct.POST)
+  .delete("/orderProduct/:id", orderProduct.DELETE)
+  .put("/orderProduct/:id", orderProduct.PUT);
 
 export default router;
