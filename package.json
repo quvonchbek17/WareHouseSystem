@@ -6,7 +6,8 @@
   "scripts": {
     "start": "tsc -p . && node ./dist/server.js",
     "dev": "nodemon server.ts",
-    "lint": "eslint"
+    "lint": "eslint ./server.ts",
+    "lint:watch": "eslint --watch server.ts"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,9 @@
   },
   "dependencies": {
     "@types/eslint": "^8.4.6",
+    "dotenv": "^16.0.2",
     "eslint": "^8.23.0",
+    "eslint-watch": "^8.0.0",
     "express": "^4.18.1",
     "nodemon": "^2.0.19",
     "pg": "^8.8.0",
