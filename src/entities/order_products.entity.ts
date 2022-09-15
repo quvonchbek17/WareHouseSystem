@@ -5,8 +5,8 @@ import {
   OneToOne,
   JoinColumn,
 } from "typeorm";
-// import { Order } from "./order.entity";
-// import { Product } from "./product.entity";
+import { Orders } from "./orders.entity";
+import { Products } from "./products.entity";
 
 @Entity()
 export class order_products {
@@ -32,13 +32,13 @@ export class order_products {
   })
   product_count: string;
 
-  // @OneToOne(() => Product)
-  // @JoinColumn()
-  // product_id: Product.product_id;
+  @OneToOne(() => Products)
+  @JoinColumn()
+  product_id: Products["id"];
 
-  // @OneToOne(() => Order)
-  // @JoinColumn()
-  // order_id: Order.order_id;
+  @OneToOne(() => Orders)
+  @JoinColumn()
+  order_id: Orders["order_id"];
 
   @Column({ type: "time with time zone", default: () => "CURRENT_TIMESTAMP" })
   order_produc_joined_at: string;
