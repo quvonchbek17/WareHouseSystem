@@ -1,11 +1,6 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+
+import { Column, Entity, Generated, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+
 import { Users } from "./users.entity";
 
 @Entity()
@@ -25,15 +20,23 @@ export class Orders {
   })
   order_description: string;
 
+
   @Column({ type: "time with time zone", default: () => "CURRENT_TIMESTAMP" })
   ordered_at: string;
 
-  @Column({ type: "time with time zone", default: () => "CURRENT_TIMESPAMP" })
-  delivered_at: string;
 
-  @Column({ type: "boolean", nullable: false, default: true })
-  order_status: boolean;
-  //   order_status: "accepted" | "expected" | "arrived";
+    @Column({
+        type: 'time with time zone',
+        nullable: true
+    })
+    delivered_at: string
+
+    @Column({
+        type: 'enum',
+        enum: ['accepted', 'expected', 'arrived'],
+        default: 'accepted'
+    })
+    order_status: 'accepted' | 'expected' | 'arrived'
 
   @OneToOne(() => Users)
   @JoinColumn()
