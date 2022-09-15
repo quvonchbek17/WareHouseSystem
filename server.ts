@@ -1,13 +1,13 @@
-import express from 'express'
-import { dataSource } from './src/config/ormconfig'
-import routes from './src/routes/routes'
+import express from "express";
+import { dataSource } from "./src/config/ormconfig";
+import routes from "./src/routes/routes";
 
-const app: express.Application = express()
+const app: express.Application = express();
 
 app.use(express.json());
-app.use(routes)
+app.use(routes);
 
-console.log("Ok")
+console.log("Ok");
 
 dataSource
   .initialize()
