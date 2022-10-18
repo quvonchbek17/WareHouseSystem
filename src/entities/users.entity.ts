@@ -3,11 +3,8 @@ import {
   Entity,
   OneToOne,
   PrimaryGeneratedColumn,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
+  JoinColumn
 } from "typeorm";
-import { Orders } from "./orders.entity";
 import { UserInfo } from "./user_info.entity";
 
 @Entity()
