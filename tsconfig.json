@@ -11,7 +11,8 @@
     "noImplicitAny": true,
     "rootDir": "./",
     "outDir": "./dist",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+	"removeComments": true
   },
   "include": [
     "./src/**/*.ts",

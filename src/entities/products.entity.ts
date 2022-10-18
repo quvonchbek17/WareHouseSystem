@@ -1,6 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-// import { Orders } from "./orders.entity";
-// import { order_products } from "./order_products.entity";
 
 @Entity()
 export class Products {
@@ -39,18 +37,4 @@ export class Products {
     nullable: false,
   })
   product_amount: string;
-
-  //   CREATE TABLE products(
-  //     product_id uuid not null DEFAULT uuid_generate_v4(),
-  //     product_name varchar(64) not null,
-  //     product_price varchar(256) not null,
-  //     product_count bigint not null,
-  //     product_potential_count bigint not null,
-  //     product_amount varchar(256) not null
-  // );
-
-  //   @OneToMany(() => Photo, (photo) => photo.user)
-  //   photos: Photo[];
-  //   @OneToMany(() => Photo, (photo) => photo.user)
-  //   photos: Photo[];
 }

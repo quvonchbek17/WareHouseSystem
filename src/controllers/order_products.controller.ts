@@ -1,60 +1,79 @@
-import { Request, Response } from "express";
-import { dataSource } from "../config/ormconfig";
-import { order_products } from "../entities/order_products.entity";
+import { NextFunction, Request, Response } from "express"
+import { dataSource } from "../config/ormconfig"
+import { order_products } from "../entities/order_products.entity"
+import { CustomErrorHandler } from "../errors/errorHandler"
+import { OrderProductsPostValidation, OrderProductsPutValidation } from "../utils/validation/order.validation"
+import { ParamFilter } from "../utils/validation/user.validation"
 
 export default {
-  GET: async (_: Request, res: Response) => {
-    const orederProduct = await dataSource.getRepository(order_products).find();
+	POST: async (req: Request, res: Response, next: NextFunction) => {
+		const { error, value } = OrderProductsPostValidation.validate(req.body)
 
-    res.json(orederProduct);
-  },
+		if(error) {
+			return next(new CustomErrorHandler(error.message, 400))
+		}
 
-  POST: async (req: Request, res: Response) => {
-    const { price, amount, count } = req.body;
+		const { orderProducts } = value
 
-    const newOrderProduct = await dataSource
-      .createQueryBuilder()
-      .insert()
-      .into(order_products)
-      .values({
-        product_price: price,
-        product_amount: amount,
-        product_count: count,
-      })
-      .execute();
+		const newOrderProduct = await dataSource
+			.createQueryBuilder()
+			.insert()
+			.into(order_products)
+			.values(orderProducts)
+			.returning(["order_product_id"])
+			.execute()
+			.catch(err => next(new CustomErrorHandler(err.message, 503)))
 
-    res.json(newOrderProduct);
-  },
+		if(newOrderProduct) res.status(201).json({
+			message: "Order products has been added"
+		})
+	},
+	PUT: async (req: Request, res: Response, next: NextFunction) => {
+		const { error, value } = ParamFilter.validate(req.params)
 
-  PUT: async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const { price, amount, count } = req.body;
+		const { id } = value
 
-    const updatedOrderProduct = await dataSource
-      .createQueryBuilder()
-      .update(order_products)
-      .set({
-        product_price: price,
-        product_amount: amount,
-        product_count: count,
-      })
-      .where("order_product_id = :id", { id })
-      .returning(["product_price"])
-      .execute();
+		if(error) {
+			return next(new CustomErrorHandler(error.message, 400))
+		}
 
-    res.json(updatedOrderProduct);
-  },
+		const { error: bodyError, value: bodyValue } = OrderProductsPutValidation.validate(req.body)
 
-  DELETE: async (req: Request, res: Response) => {
-    const { id } = req.params;
+		if(bodyError) {
+			return next(new CustomErrorHandler(bodyError.message, 400))
+		}
 
-    const updatedOrderProduct = await dataSource
-      .createQueryBuilder()
-      .delete()
-      .from(order_products)
-      .where("order_product_id = :id", { id })
-      .execute();
+		const { count } = bodyValue
 
-    res.json(updatedOrderProduct);
-  },
-};
+		const updatedOrderProduct = await dataSource
+			.createQueryBuilder()
+			.update(order_products)
+			.set({
+				product_count: count
+			})
+			.where("order_product_id = :id", { id })
+			.returning(["order_product_id"])
+			.execute()
+			.catch(err => next(new CustomErrorHandler(err.message, 503)))
+
+		if(updatedOrderProduct) res.json(updatedOrderProduct)
+	},
+	DELETE: async (req: Request, res: Response, next: NextFunction) => {
+		const { error, value } = ParamFilter.validate(req.params)
+
+		if(error) return next(new CustomErrorHandler(error.message, 400))
+
+		const { id } = value
+
+		const deletedOrderProduct = await dataSource
+			.createQueryBuilder()
+			.delete()
+			.from(order_products)
+			.where("order_product_id = :id", { id })
+			.returning(["order_product_id"])
+			.execute()
+			.catch(err => next(new CustomErrorHandler(err.message, 503)))
+
+		if(deletedOrderProduct) res.json(deletedOrderProduct)
+	}
+}
