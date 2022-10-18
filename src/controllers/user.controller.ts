@@ -4,12 +4,12 @@ import { dataSource } from "../config/ormconfig";
 import { Users } from "../entities/users.entity";
 
 export default {
-  GET: async (req: Request, res: Response) => {
+  GET: async (_: Request, res: Response) => {
     const users = await dataSource.getRepository(Users).findBy({
       user_id: Not("947f659d-7bb9-43d0-92ef-03a124978fa2"),
     });
 
-    res.json(users);
+    res.json(users)
   },
   GET_FILTERED: async (req: Request, res: Response) => {
     try {
